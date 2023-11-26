@@ -1,0 +1,91 @@
+.articles-group {}
+
+.articles-group__title {
+  position: sticky;
+  top: calc(var(--offset, 0px) + var(--is-header-fixed, 0) * var(--header-height, 0) * 1px);
+  margin-top: 0;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  padding: 4px 10px;
+  display: inline-block;
+  vertical-align: top;
+  font: inherit;
+  background-color: var(--accent-color);
+  transition: top 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
+  will-change: top;
+}
+
+.articles-group__sub-title {
+  margin-top: calc(14 / 15 * 1em);
+  margin-bottom: calc(17 / 15 * 1em);
+  font-weight: normal;
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+}
+
+.articles-group__title--letter {
+  text-transform: uppercase;
+}
+
+.articles-group__section {}
+
+.articles-group__section + .articles-group__section {
+  margin-top: 30px;
+}
+
+.articles-group__list {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.articles-group__link {
+  font-size: var(--font-size-m);
+  line-height: var(--font-line-height-m);
+  font-family: var(--font-family);
+}
+
+.articles-group__code {
+  font-size: var(--font-size-m);
+  line-height: var(--font-line-height-m);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.articles-group__placeholder-icon::before {
+  content: '✎';
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+  letter-spacing: 0.2em;
+}
+
+.article-group__label {
+  padding: 5px;
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+  white-space: nowrap;
+  background-color: var(--color-fade);
+}
+
+.articles-group--accent .articles-group__link {
+  --stroke-color: var(--accent-color);
+}
+
+.articles-group--title-static .articles-group__title {
+  position: static;
+}
+
+@media (min-width: 768px) {
+  .articles-group__list {
+    grid-gap: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .articles-group__title {
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,24 @@
+/* настройки светлой темы (тема по умолчанию) */
+:root {
+  color-scheme: light;
+
+  --is-light-theme-on: 1;
+  --is-dark-theme-on: 0;
+
+  --color-base-text: var(--color-dark);
+  --color-base-background: var(--color-light);
+
+  --color-text: hsl(var(--color-dark));
+  --color-background: hsl(var(--color-light));
+  --color-fade: hsl(0 0% 92%);
+
+  --color-html: hsl(var(--color-orange));
+  --color-css: hsl(var(--color-blue));
+  --color-js: hsl(var(--color-yellow));
+  --color-tools: hsl(var(--color-green));
+  --color-recipes: hsl(var(--color-violet));
+  --color-a11y: hsl(var(--color-aquamarine));
+
+  --color-subscribe-success: hsl(var(--color-green));
+  --color-subscribe-error: hsl(var(--color-red));
+}

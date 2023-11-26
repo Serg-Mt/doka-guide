@@ -1,0 +1,26 @@
+{% from "blocks/header.njk" import header with context %}
+{% from "blocks/footer.njk" import footer with context %}
+
+{{ header(isLogoImageHidden=true) }}
+
+<main>
+  <div class="not-found font-theme font-theme--code">
+    <div class="not-found__logo logo">
+      <div class="logo__image" aria-hidden="true">
+        <div class="logo__symbols">
+          U<span class="logo__eye">×</span><span class="logo__nose">ᴥ</span><span class="logo__eye">×</span>U
+        </div>
+      </div>
+    </div>
+    <p class="not-found__description">
+      Мы ничего не нашли, <br>
+      но смотрите, что есть ещё:
+    </p>
+  </div>
+
+  <div class="container">
+    {% include "articles-gallery.njk" %}
+  </div>
+</main>
+
+{{ footer() }}

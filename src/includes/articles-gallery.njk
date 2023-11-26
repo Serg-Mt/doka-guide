@@ -1,0 +1,25 @@
+{% from "blocks/featured-article.njk" import featuredArticle %}
+
+{% set lazyLoadingIndexThreshold = 3 %}
+
+{% if (featuredArticles and featuredArticles.length > 0) %}
+  <section class="articles-gallery">
+    <h2 class="visually-hidden">Избранные статьи</h2>
+
+    <ul class="featured-articles-list base-list">
+      {% for article in featuredArticles %}
+        {% set isLazyLoading = loop.index > lazyLoadingIndexThreshold %}
+        <li class="featured-articles-list__item">
+          {{ featuredArticle(article=article, isLazyLoading=isLazyLoading) }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if featuredArticles and featuredArticles.length > lazyLoadingIndexThreshold %}
+      <button class="articles-gallery__more-button button" type="button">
+        Показать ещё
+      </button>
+    {% endif %}
+  </section>
+{% endif %}
+

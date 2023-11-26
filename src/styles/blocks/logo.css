@@ -1,0 +1,139 @@
+.logo {
+  --ligthness: calc(var(--is-light-theme-on) * 90% + var(--is-dark-theme-on) * 25%);
+  --logo-border-color: hsla(0 0% calc(0% + var(--is-dark-theme-on) * 100%) / 0.33);
+  --image-font-size: 0.85em;
+  --logo-letter-spacing: -0.14em;
+  --image-padding: calc(1 / 15 * 1em) calc(5 / 15 * 1em) 0;
+  display: inline-flex;
+  white-space: nowrap;
+  text-decoration: none;
+  font-family: var(--font-family);
+  color: inherit;
+}
+
+.logo__image {
+  --is-animation: 0;
+  --accent-color: var(--color-html);
+  align-self: center;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: var(--image-padding);
+  display: inline-grid;
+  place-items: center;
+  background-color: var(--color-background);
+  border: 1px transparent solid;
+  border-radius: 2em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.logo__image--contrast {
+  border: 1px var(--logo-border-color) solid;
+}
+
+.logo__image::before {
+  --colors:
+    var(--accent-color),
+    var(--accent-color),
+    var(--color-css),
+    var(--color-js),
+    var(--color-tools),
+    var(--color-recipes),
+    var(--color-a11y),
+    var(--accent-color),
+    var(--accent-color);
+  --parts: 8;
+  content: '';
+  opacity: var(--is-animation);
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(var(--parts) * 100%);
+  background-image: linear-gradient(var(--colors));
+  transition: opacity 0.5s;
+}
+
+.logo__image--animation {
+  --is-animation: 1;
+}
+
+@keyframes logoAnimation {
+  to {
+    transform:
+      translateY(-100%)
+      translateY(calc(100% / (var(--parts) - 1)));
+  }
+}
+
+.logo__image--animation::before {
+  animation: logoAnimation 0.75s ease-out infinite both;
+}
+
+.logo__symbols {
+  grid-area: 1 / 1 / -1 / -1;
+  margin-right: calc(var(--logo-letter-spacing) * -1);
+  font-size: var(--image-font-size);
+  line-height: 1;
+  letter-spacing: var(--logo-letter-spacing);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  transform: translateZ(0); /* для устранения скачков в Safari */
+}
+
+.logo__symbols--main {
+  opacity: calc(1 - var(--is-animation));
+}
+
+.logo__symbols--search {
+  opacity: var(--is-animation);
+}
+
+.logo__eye {
+  position: relative;
+  top: -0.08em;
+}
+
+.logo__eye:first-child {
+  letter-spacing: calc(var(--logo-letter-spacing) * 2);
+}
+
+.logo__nose {
+  position: relative;
+  font-size: calc(var(--image-font-size) * 10 / 7);
+  line-height: calc(var(--image-font-size) * 7 / 10);
+  top: -0.015em;
+  letter-spacing: calc(var(--logo-letter-spacing) * 1.5);
+}
+
+.logo__text {
+  margin-left: 5px;
+  padding: var(--image-padding);
+  padding-top: calc(2 / 15 * 1em);
+  padding-bottom: calc(1 / 10 * 1em);
+  background-color: var(--color-background);
+  border-radius: 2em;
+  border: 1px transparent solid;
+  text-decoration: none;
+  font-size: var(--image-font-size);
+  line-height: var(--image-font-size);
+}
+
+.logo__text--contrast {
+  border: 1px var(--logo-border-color) solid;
+}
+
+.logo__text::first-letter {
+  font-feature-settings: 'ss01' on;
+}
+
+.logo--color-contrast {
+  --ligthness: calc(var(--is-light-theme-on) * 100%);
+}
+
+.logo--color-fade {
+  --ligthness: calc(var(--is-light-theme-on) * 90% + var(--is-dark-theme-on) * 25%);
+}

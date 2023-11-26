@@ -1,0 +1,9 @@
+.inline-code {
+  padding: 0.025em 0.35em;
+  font-size: var(--font-size-m);
+  line-height: var(--font-line-height-m);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+  border-radius: 2em;
+  background-color: var(--background-code-color, var(--color-fade));
+}

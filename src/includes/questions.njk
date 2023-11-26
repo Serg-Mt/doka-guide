@@ -1,0 +1,113 @@
+{% macro answerOrName(name, url) %}
+  {% if url %}
+    <a class="link font-theme--code" href="{{ url }}">{{ name }}</a>
+  {% else %}
+    <span class="font-theme--code">{{ name }}</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro roleLabel(role) %}
+  {% set roleUrl = allRoles[role].url %}
+  {% if role.url %}
+    {% set roleUrl = role.url %}
+  {% endif %}
+  {% set roleTitle = allRoles[role].title %}
+  {% if role.title %}
+    {% set roleTitle = role.title %}
+  {% endif %}
+  {% set roleColor = allRoles[role].color %}
+  {% if role.color %}
+    {% set roleColor = role.color %}
+  {% endif %}
+  {% set roleBackground = allRoles[role].bgColor %}
+  {% if role.bgColor %}
+    {% set roleBackground = role.bgColor %}
+  {% endif %}
+  {% set roleHover = allRoles[role].hoverColor %}
+  {% if role.hoverColor %}
+    {% set roleHover = role.hoverColor %}
+  {% endif %}
+  {% set roleBorder = allRoles[role].border %}
+  {% if role.border %}
+    {% set roleBorder = role.border %}
+  {% endif %}
+  <a href="{{ roleUrl }}" class="answer__author-roles-link" style="--role-color: {{ roleColor }}; --role-bg-color: {{ roleBackground }}; --role-hover-color: {{ roleHover }}; --role-border-color: {{ roleBorder }}">
+    {{ roleTitle }}
+  </a>
+{% endmacro %}
+
+{% if questions.length > 0 %}
+  <section class="questions" id="questions">
+    {{ questionsAuthors.length }}
+    <h2 class="questions__title">
+      На собеседовании
+    </h2>
+
+    <a class="questions__edit-button button" href="https://github.com/doka-guide/content/issues/new?assignees=&labels=&projects=&template=3_new_answer.yml&title=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81+%D0%B4%D0%BB%D1%8F+%D1%81%D0%BE%D0%B1%D0%B5%D1%81%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%3A+" target="_blank" rel="noopener" rel="noreferrer">
+      {{ githubicon | safe }} Задать вопрос в рубрику
+    </a>
+
+    <div class="questions__list">
+
+      {% for question in questions %}
+        <div class="question__request">
+          <aside class="callout">
+            <div class="callout__icon">❓</div>
+            <div class="callout__content">
+              {{ question.templateContent | safe }}
+            </div>
+          </aside>
+
+          <a class="questions__edit-button button" href="{{ question.addAnswer }}" target="_blank" rel="noopener" rel="noreferrer">
+            🤚 Я знаю ответ
+          </a>
+
+        </div>
+
+        <div class="question__response">
+        {% if answers[question.fileSlug].length > 0 %}
+          {% for answer in answers[question.fileSlug] %}
+            {% set answerAuthor = collections.peopleById[answer.fileSlug] %}
+
+            <article class="question__answer answer" id="{{ question.fileSlug }}-answers-{{ answer.fileSlug }}">
+              <h3 class="answer__author">
+                <span class="answer__author-roles">
+                  {% for roleKey in answerAuthor.data.roles %}
+                    {{ roleLabel(
+                      role=roleKey
+                    ) }}
+                  {% endfor %}
+                </span>
+                <div>
+                  <span class="answer__author-name">
+                    {{ answerOrName(
+                      name=(answerAuthor.data.name or answer.fileSlug),
+                      url='/people/' + answerAuthor.fileSlug + '/'
+                    ) }}
+                  </span>
+                  &nbsp;отвечает
+                </div>
+              </h3>
+              <div class="answer__content {% if not answer.isLong %}answer__content--short{% endif %} content">
+                <div class="answer__summary content">
+                  {{ answer.templateContent | safe }}
+                  {% if answer.isLong %}
+                    <button class="answer__toggler" type="button" aria-live="polite" data-collapsed>
+                      + Развернуть
+                    </button>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        {% else %}
+          <p class="question__response-placeholder">
+            Это вопрос без ответа. Вы можете помочь! Почитайте о том, как <a href="https://github.com/doka-guide/content/blob/main/docs/contributing.md">контрибьютить в Доку</a>.
+          </p>
+        {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </section>
+{% endif %}

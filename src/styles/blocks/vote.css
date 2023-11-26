@@ -1,0 +1,47 @@
+.vote {
+  margin: 0;
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+  width: 109px;
+  height: 44px;
+  padding: 0;
+  border: 3px solid var(--vote-color);
+  font: inherit;
+  color: var(--vote-color);
+  background: 0;
+  border-radius: 6px;
+  transition: 125ms background-color;
+  cursor: pointer;
+}
+
+.vote::before {
+  content: '';
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  background-color: var(--vote-color);
+  transition: opacity 0.2s;
+}
+
+.vote--up {
+  --vote-color: hsl(122, 78%, 58%);
+}
+
+.vote--down {
+  --vote-color: hsl(346, 81%, 78%);
+}
+
+.vote:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.vote:not(:disabled):hover::before {
+  opacity: 0.1;
+}
+
+.vote--active {
+  background-color: var(--vote-color);
+  color: hsl(var(--color-black));
+}

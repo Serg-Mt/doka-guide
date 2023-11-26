@@ -1,0 +1,121 @@
+.index-block {
+  --offset: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 1366px) {
+  .index-block {
+    min-height: calc(100vh - var(--font-line-height-l) - 3 * var(--offset));
+  }
+}
+
+.index-block__header {
+  padding: var(--offset);
+  background-color: var(--accent-color);
+}
+
+.index-block__title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: normal;
+}
+
+.index-block__description {}
+
+.index-block__description--aside {}
+
+.index-block__filter {
+  margin: 0;
+  position: sticky;
+  bottom: 0;
+  padding: var(--offset);
+  border: 0;
+  display: flex;
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+  background-color: var(--color-background);
+}
+
+.index-block__filter-legend {}
+
+.index-block__filter-control {}
+
+.index-block__main {}
+
+@media not all and (min-width: 1366px) {
+  .index-block__inner {
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+    min-height: calc(100vh - var(--font-line-height-m) - 3 * var(--offset));
+  }
+
+  .index-block__header {
+    padding-top: clamp(20px, 8%, 130px);
+  }
+
+  .index-block__filter {
+    order: 1;
+    z-index: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--offset, 20px);
+    border-block-start: 1px solid hsl(var(--color-base-text) / 0.3);
+    font-size: var(--font-size-m);
+    line-height: var(--font-line-height-m);
+  }
+
+  .index-block__filter::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    margin-bottom: 1px;
+    height: 40px;
+    background-image: linear-gradient(hsl(var(--color-base-background) / 0), var(--color-background));
+  }
+}
+
+@media (min-width: 1366px) {
+  .index-block {
+    --offset: 20px;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+  }
+
+  .index-block__inner {
+    display: contents;
+  }
+
+  .index-block__header {
+    grid-column: 1;
+    background-color: transparent;
+  }
+
+  .index-block__title {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .index-block__description {}
+
+  .index-block__filter {
+    grid-column: 1;
+    padding: var(--offset);
+    padding-right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
+    gap: 4px;
+  }
+
+  .index-block__main {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}

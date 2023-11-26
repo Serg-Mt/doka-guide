@@ -1,0 +1,22 @@
+.breadcrumbs {
+  display: flex;
+  align-items: baseline;
+}
+
+.breadcrumbs__text {
+  --stroke-width: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-underline-offset: 0.2em;
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: baseline;
+}
+
+.breadcrumbs__item--shrink {
+  flex-shrink: 1;
+  min-width: 0;
+}

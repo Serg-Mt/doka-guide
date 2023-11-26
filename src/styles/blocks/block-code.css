@@ -1,0 +1,121 @@
+/* вынесено в root, чтобы задать один экземпляр переменной, а не создавать несколько для каждого узла `block-code` */
+:root {
+  --code-lines-lightness: calc(var(--is-dark-theme-on) * 60% + var(--is-light-theme-on) * 34%);
+}
+
+.block-code {
+  --line-height: calc(24 / 18);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  counter-reset: line-count 0;
+  white-space: normal;
+}
+
+.block-code::before {
+  content: attr(data-lang);
+  margin-bottom: 0.5em;
+  display: block;
+  width: max-content;
+  padding: 0.45em 0.9em 0.25em;
+  font-family: var(--font-family, monospace);
+  text-transform: uppercase;
+  font-size: 0.6em;
+  line-height: 1;
+  letter-spacing: 0.025em;
+  background-color: var(--color-fade);
+  border-radius: 2em;
+  transition: opacity 0.2s;
+}
+
+.block-code__inner {
+  display: grid;
+  align-items: start;
+  align-content: start;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: 'lines code';
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  font-size: 1em;
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  font-family: var(--font-family, monospace);
+}
+
+.block-code__lines {
+  grid-area: lines;
+  position: sticky;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+  padding-right: 20px;
+  font: inherit;
+  text-align: end;
+  background-color: var(--code-lines-background, hsl(var(--color-base-background) / 0.92));
+  color: hsl(0 0% var(--code-lines-lightness));
+}
+
+.block-code__line {
+  counter-increment: line-count;
+  position: relative;
+  display: block;
+  min-height: calc(var(--line-height) * 1em);
+}
+
+.block-code__line::before {
+  content: counter(line-count);
+  display: block;
+}
+
+.block-code__original,
+.block-code__highlight {
+  grid-area: code;
+  font: inherit;
+}
+
+.block-code__original {
+  visibility: hidden;
+  user-select: none;
+}
+
+.block-code__original-line {
+  white-space: pre;
+  display: block;
+  min-height: calc(var(--line-height) * 1em);
+  font: inherit;
+}
+
+.block-code__highlight {
+  white-space: pre;
+}
+
+.block-code__tools {
+  grid-area: tools;
+  display: block;
+  padding: 12px 0;
+}
+
+@media (min-width: 768px) {
+  .block-code {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .block-code {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+}
+
+@media (min-width: 1680px) {
+  .block-code {
+    margin-top: 32px;
+    margin-bottom: 50px;
+  }
+
+  .block-code::before {
+    margin-bottom: 1em;
+  }
+}
