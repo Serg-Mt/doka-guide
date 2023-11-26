@@ -1,0 +1,20 @@
+.base {
+  --is-header-fixed: 0;
+  --header-height:
+    calc(
+      var(--is-header-fixed) * var(--fixed-header-height, 0) +
+      (1 - var(--is-header-fixed)) * var(--not-fixed-header-height, 0)
+    );
+  font-size: var(--font-size-m, 100%);
+  line-height: var(--font-line-height-m, 1.15);
+  font-family: var(--font-family, sans-serif);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+.base__body {
+  margin: 0;
+  padding-top: calc(var(--is-header-fixed) * var(--not-fixed-header-height, 0) * 1px);
+}

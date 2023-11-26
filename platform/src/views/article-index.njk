@@ -1,0 +1,107 @@
+{% from "blocks/header.njk" import header with context %}
+{% from "blocks/footer.njk" import footer with context %}
+
+{% set isLogoContrastColor = hasCategory %}
+
+{% set iconEditPlaceholder %}<span class="articles-group__placeholder-icon font-theme font-theme--code" aria-hidden="true"></span>{% endset %}
+
+{{ header(
+  pageCategoryId=category,
+  category=categoryName,
+  isLogoContrastColor=isLogoContrastColor,
+  hasAccentColor=(not (not categoryName))
+) }}
+
+<div class="index-block">
+  <div class="index-block__inner">
+    <div class="index-block__header">
+      <h1 class="index-block__title">
+        {{ categoryName }}
+      </h1>
+      <div class="index-block__description content">
+        {{ articleIndex.templateContent | safe }}
+      </div>
+    </div>
+
+    <fieldset class="index-block__filter">
+      {# fieldset и legend не работают с flexbox/grid #}
+      <legend class="visually-hidden">Сортировать по:</legend>
+      <div class="index-block__filter-legend" aria-hidden="true">Сортировать по:</div>
+
+      <div class="index-block__filter-control switch">
+        <label class="switch__item">
+          <input class="switch__input" type="radio" name="index-filter" value="themes" checked>
+          <span class="switch__label">Темам</span>
+        </label>
+        <label class="switch__item">
+          <input class="switch__input" type="radio" name="index-filter" value="alphabet">
+          <span class="switch__label">Алфавиту</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <main class="index-block__main">
+      <section class="index-section" id="themes">
+        <h2 class="visually-hidden">Статьи раздела «{{ categoryName }}» по темам</h2>
+
+        {% for group in allGroups %}
+          <section class="index-section__item articles-group" id="{{ group.name | slugify }}">
+            <h3 class="articles-group__title">
+              {{ group.name | descriptionMarkdown | safe }}
+            </h3>
+            <ul class="articles-group__list base-list">
+              {% for articleId in group.items %}
+                {% set article = categoryArticlesBySlug[articleId] %}
+                {% if article %}
+                  {% set isPlaceholder = article.data.tags | hasTag('placeholder') %}
+                  <li>
+                    <a class="articles-group__link link" href="/{{ category }}/{{ articleId }}/">
+                      {% if isPlaceholder %}{{ iconEditPlaceholder | safe }}{% endif -%}
+                      {{- article.data.title | descriptionMarkdown | safe }}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </section>
+        {% endfor %}
+      </section>
+
+      <section class="index-section" id="alphabet">
+        <h2 class="visually-hidden">Статьи раздела «{{ categoryName }}» по алфавиту</h2>
+        {% for letter in firstLettersOfArticles %}
+          <section class="index-section__item articles-group">
+            <h3 class="articles-group__title articles-group__title--letter">
+              {{ letter }}
+            </h3>
+            <ul class="articles-group__list base-list">
+              {% for articleId in categoryArticlesByAlphabet[letter] %}
+                {% set article = categoryArticlesBySlug[articleId] %}
+                {% if article %}
+                  {% set isPlaceholder = article.data.tags | hasTag('placeholder') %}
+                  {% set hasGroups = groupsBySlug[articleId] %}
+                  <li>
+                    <a class="articles-group__link link" href="/{{ category }}/{{ articleId }}/">{% if isPlaceholder %}{{ iconEditPlaceholder | safe }}{% endif -%}
+                      {{- article.data.title | descriptionMarkdown | safe }}</a>
+                    {% if hasGroups %}
+                      <span class="visually-hidden">
+                      Относится к {{ "темам" if hasGroups | length > 1 else "теме" }}:
+                      </span>
+                      {% for group in groupsBySlug[articleId] %}
+                        <span class="article-group__label">{{ group | descriptionMarkdown | safe }}</span>
+                      {% endfor %}
+                    {% endif -%}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </section>
+        {% endfor %}
+      </section>
+    </main>
+  </div>
+
+</div>
+
+{{ footer() }}
+{% include "subscribe-popup.njk" %}

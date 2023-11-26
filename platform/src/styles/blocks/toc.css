@@ -1,0 +1,31 @@
+.toc__list .toc__list {
+  margin-left: 13px;
+}
+
+.toc__item {
+  padding-left: 10px;
+}
+
+.toc__link {
+  margin-left: -10px;
+  padding: 0 10px 2px;
+  border-radius: 2em;
+}
+
+.toc__link[href="#na-sobesedovanii"]::after {
+  content: ' ';
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin-left: 4px;
+  background-image: url('../../images/partners/praktikum-icon.svg');
+  background-size: 13px;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+  vertical-align: middle;
+}
+
+.toc__link--active {
+  text-decoration: none;
+  background-color: var(--active-link-background, var(--color-fade));
+}

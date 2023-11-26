@@ -1,0 +1,28 @@
+{% if category %}
+  {% set rootStyles %}
+    --accent-color: var(--color-{{ category }});
+    --accent-base-color: var(--color-base-{{ category }});
+  {% endset %}
+{% endif %}
+
+<!DOCTYPE html>
+<html
+  class="base font-theme"
+  lang="{{ meta.lang }}"
+  itemscope itemtype="https://schema.org/{{ pageType }}"
+  {% if rootStyles %}style="{{ rootStyles }}"{% endif %}
+>
+  <head>
+
+    {% include "meta.njk" %}
+
+  </head>
+  <body class="base__body {{ bodyClass }}">
+
+    {{ content | safe }}
+
+    {% include "blocks/cookie-notification.njk" %}
+
+    <script src="/scripts/index.js" {% if env.isDevEnv %}type="module"{% endif %}></script>
+  </body>
+</html>

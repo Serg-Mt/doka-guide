@@ -1,0 +1,102 @@
+.text-control {
+  --input-line-height: var(--font-line-height-s, 24px);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.text-control__row {
+  width: 100%;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.text-control__item {
+  box-sizing: border-box;
+  padding-block: var(--padding-block);
+  font: inherit;
+  line-height: var(--input-line-height);
+}
+
+.text-control__input {
+  --input-height: calc(var(--input-line-height) + 2 * var(--padding-block) + 2 * 1px);
+  --border-color-opacity: calc(1 - var(--is-dark-theme-on) * 0.6);
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--input-height);
+  height: var(--input-height);
+  border-radius: 0;
+  border-style: solid;
+  border-width: 1px 0;
+  border-top-color: transparent;
+  border-bottom-color: hsl(var(--color-base-text) / var(--border-color-opacity));
+  color: inherit;
+  background-color: transparent;
+  resize: vertical;
+}
+
+.text-control__input::placeholder {
+  opacity: 0.55;
+  font: inherit;
+  color: inherit;
+}
+
+.text-control__button {
+  flex: 0 0 auto;
+}
+
+.button--active:focus-visible,
+.text-control__button:focus-visible {
+  outline-offset: 3px;
+}
+
+@media not all and (min-width: 768px) {
+  .text-control {
+    --padding-block: 5px;
+    --input-line-height: calc(16 / 14 * 1em);
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-control__item {
+  }
+
+  .text-control__button {
+    padding-inline: 19px;
+    line-height: inherit;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-control {
+    --padding-block: 0px; /* stylelint-disable length-zero-no-unit */
+    --input-line-height: var(--font-line-height-s);
+  }
+
+  .text-control__button {
+    padding-inline: 9px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-control {
+    --padding-block: 3px;
+    --input-line-height: calc(16 / 12 * 1em);
+  }
+
+  .text-control__button {
+    padding-inline: 19px;
+  }
+}
+
+@media (min-width: 1680px) {
+  .text-control {
+    --padding-block: 5px;
+    --input-line-height: var(--font-line-height-s);
+  }
+
+  .text-control__button {
+    padding-inline: 19px;
+  }
+}

@@ -1,0 +1,108 @@
+.social-card {
+  --horizontal-proportion: 0.5427;
+  --padding-proportion: 0.0338;
+  --image-padding-proportion: 0.0577;
+  --site-block-height-proportion: 0.0835;
+  --slogan-font-size-proportion: 0.0318; /* 03817097416 */
+  --site-font-size-proportion: 0.0358;
+  --border-radius-proportion: 0.1883;
+  --logo-font-size-proportion: 0.0696;
+  --face-font-size-proportion: 0.0938;
+  --title-font-size-proportion: 0.0572; /* 06461232604 */
+  --logo-letter-spacing: -0.24em;
+  display: grid;
+  width: 100vw;
+  height: calc(100vw * var(--horizontal-proportion));
+  grid-template-columns: auto calc(100vw * var(--horizontal-proportion));
+  grid-template-rows: auto calc(100vw * var(--site-block-height-proportion));
+}
+
+.social-card__slogan {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: calc(100vw * var(--padding-proportion));
+  font-size: calc(100vw * var(--slogan-font-size-proportion));
+  line-height: calc(100vw * var(--slogan-font-size-proportion));
+  color: #fff;
+  background-color: #000;
+}
+
+.social-card__slogan-wrapper {
+  display: grid;
+  grid-gap: 6px;
+  justify-items: end;
+}
+
+.social-card__title,
+.social-card__index-title {
+  --stroke-width: 2px;
+  font-family: 'Spot Mono', monospace;
+  font-size: calc(100vw * var(--title-font-size-proportion));
+}
+
+.social-card__title::first-letter {
+  font-feature-settings: 'ss01' on;
+}
+
+.social-card__moto {
+  text-align: right;
+}
+
+.social-card__site {
+  grid-row-start: -2;
+  grid-row-end: -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: calc(100vw * var(--site-block-height-proportion));
+  padding: 0 calc(100vw * var(--padding-proportion));
+  font-size: calc(100vw * var(--site-font-size-proportion));
+  line-height: calc(100vw * var(--site-font-size-proportion));
+  color: #000;
+  background-color: #fff;
+}
+
+.social-card__base-url {
+  margin: 0;
+}
+
+.social-card__cover {
+  grid-row-start: 1;
+  grid-row-end: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--accent-color);
+}
+
+.social-card__cover-wrapper {
+  padding: calc(100vw * var(--image-padding-proportion));
+}
+
+.social-card__image {
+  height: calc(100vw * var(--horizontal-proportion) - 2 * 100vw * var(--image-padding-proportion));
+  width: auto;
+}
+
+.social-card__placeholder {
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.social-card__logo {
+  width: max(27vw, 140px);
+}
+
+.social-card__logo svg {
+  width: 100%;
+}

@@ -1,0 +1,24 @@
+.figure {
+  margin-inline: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.figure__content {
+  margin: 0;
+}
+
+.figure__caption {
+  padding: 1em;
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+  text-align: center;
+}
+
+.figure__caption-code {
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+}

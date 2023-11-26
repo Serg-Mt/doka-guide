@@ -1,0 +1,59 @@
+{% macro person(name, url) %}
+  {% if url %}
+    <a class="persons-list__name link" href="{{ url }}" itemprop="url">
+      <span itemprop="name">{{ name }}</span>
+    </a>
+  {% else %}
+    <span class="persons-list__name" itemprop="name">{{ name }}</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro personsList(list, personType, maxPersons = 3) %}
+  {% set totalPersonsCount = list.length %}
+  {% set extraPersonsCount = totalPersonsCount - maxPersons %}
+  {% set divider = "," %}
+
+  <div class="persons-list">
+    <ul class="persons-list__items base-list">
+      {% for personItem in list %}
+        {% set isHidden = loop.index > maxPersons %}
+        <li
+          class="persons-list__item" {% if isHidden %}hidden{% endif %}
+          itemscope itemtype="https://schema.org/Person"
+          {% if personType %}itemprop="{{ personType }}"{% endif %}
+        >
+          {{ person(name=personItem.data.name, url='/people/' + personItem.fileSlug + '/') }}
+          {% if not loop.last %}
+            {{ divider }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if extraPersonsCount > 0 %}
+      <span class="persons-list__extra">
+        и <button class="persons-list__button link" type="button">ещё {{ extraPersonsCount }}</button>
+      </span>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+<dl class="contributors">
+  <div class="contributors__item">
+    <dt class="contributors__key">Авторы:</dt>
+    <dd class="contributors__value">{{ personsList(list=populatedAuthors, personType="author") }}</dd>
+  </div>
+
+  {% if populatedContributors.length > 0 %}
+    <div class="contributors__item">
+      <dt class="contributors__key">Контрибьюторы:</dt>
+      <dd class="contributors__value">{{ personsList(list=populatedContributors, personType="contributor") }}</dd>
+    </div>
+  {% endif %}
+
+  {% if populatedEditors.length > 0 %}
+    <div class="contributors__item">
+      <dt class="contributors__key">Редакторы:</dt>
+      <dd class="contributors__value">{{ personsList(list=populatedEditors, personType="editor") }}</dd>
+    </div>
+  {% endif %}
+</dl>

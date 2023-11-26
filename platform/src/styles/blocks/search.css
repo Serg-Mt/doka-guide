@@ -1,0 +1,130 @@
+.search {
+  --search-input-height: calc(var(--font-size-xl) * 1.25);
+  position: relative;
+  display: grid;
+  font-family: var(--font-family);
+  font-size: calc(var(--font-size-xl) * 0.85);
+  line-height: calc(var(--font-line-height-xl) * 0.85);
+  letter-spacing: var(--letter-spacing);
+}
+
+.search__input,
+.search__controls {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.search__input {
+  margin: 0;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border: 0;
+  padding: 0 10px;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  outline: none;
+  border-bottom: 2px solid hsl(0 0% 70%);
+  background-color: transparent;
+}
+
+.search__input:focus {
+  border-bottom-color: var(--color-text);
+}
+
+.search__control {
+  position: relative;
+  display: grid;
+}
+
+.search__control > * {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.search__input::placeholder {
+  opacity: 0.7;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.search__key {
+  margin: 0 10px;
+  place-self: center end;
+  pointer-events: none;
+}
+
+.search__input:focus ~ .search__key--activate {
+  visibility: hidden;
+}
+
+.search__input:placeholder-shown ~ .search__key--enter,
+.search__input:not(:focus) ~ .search__key--enter {
+  visibility: hidden;
+}
+
+.search__output:not(:empty) + .search__placeholder {
+  display: none;
+}
+
+.search__suggestion {
+  --lightness: calc(100% - var(--is-dark-theme-on) * 80%);
+  --background-opacity: 0.96;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  letter-spacing: normal;
+  background-color: hsl(0 0% var(--lightness) / var(--background-opacity));
+  box-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
+  border-radius: 6px;
+  transition: 0.4s;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .search__suggestion {
+    --background-opacity: 0.66;
+    backdrop-filter: blur(15px);
+  }
+}
+
+.search__suggestion--hide {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.5em);
+}
+
+.search__suggestion-content {
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 5px;
+  max-height: calc(100vh - 120px);
+  font-family: var(--font-family);
+  letter-spacing: var(--letter-spacing);
+}
+
+.search__full-link {
+  margin: 5px auto;
+  display: block;
+  width: max-content;
+  padding: 5px;
+  font-size: var(--font-size-s);
+  line-height: var(--font-line-height-s);
+  font-family: var(--font-family);
+  letter-spacing: normal;
+}
+
+@media not all and (min-width: 1024px) {
+  .search__suggestion-key {
+    display: none;
+  }
+
+  .search__suggestion-footer {
+    margin-top: 20px;
+  }
+}
